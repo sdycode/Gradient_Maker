@@ -6,23 +6,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:gradient_maker/constants.dart';
 import 'package:gradient_maker/gradprovder.dart';
-import 'package:gradient_maker/laignmnet_pair.dart';
+import 'package:gradient_maker/aignmnet_pair.dart';
 import 'package:gradient_maker/main.dart';
 import 'package:provider/provider.dart';
-
-List<AlignmentPair> alignmentPairList = [];
-
-class ColorStopModel {
-  double colorStop;
-  String hexColorString;
-  double left;
-  ColorStopModel(this.colorStop, this.hexColorString, this.left);
-  ColorStopModel.withStopValue(this.colorStop,
-      [this.hexColorString = "ffffffff", this.left = 0]);
-  factory ColorStopModel.copy(ColorStopModel model) {
-    return ColorStopModel(model.colorStop, model.hexColorString, model.left);
-  }
-}
 
 class GradientCreator extends StatefulWidget {
   const GradientCreator({Key? key}) : super(key: key);
@@ -195,12 +181,7 @@ class _GradientCreatorState extends State<GradientCreator> {
     } else {
       return true;
     }
-    // RegExp _hexcolor = RegExp(r'^#?([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$');
-    // if (_hexcolor.hasMatch("#" + hex)) {
-    //   return true;
-    // } else {
-    //   return false;
-    // }
+
   }
 
   getHexColor(String colorString) {
@@ -257,7 +238,11 @@ class _GradientCreatorState extends State<GradientCreator> {
                 ),
                 Align(
                   alignment: Alignment.centerRight,
-                  child: Container(
+                  child:
+                  
+                  Container
+                  
+                  (
                     constraints: BoxConstraints(
                       maxHeight: h - topbarH - 20 - tileModeW * 4,
                     ),
@@ -401,6 +386,8 @@ class _GradientCreatorState extends State<GradientCreator> {
                       ],
                     ),
                   ),
+               
+               
                 )
               ],
             ),
@@ -409,79 +396,85 @@ class _GradientCreatorState extends State<GradientCreator> {
   }
 
   _gradientSelectionBox(int i) {
-    return InkWell(
-      onTap: () {
-        gradProvider.gradientType = GradientType.values[i];
-        gradProvider.updateUi();
-      },
-      child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 10),
-        child: Column(
-          children: [
-            Container(
-              height: gradeSelectBoxW,
-              width: gradeSelectBoxW,
-              decoration: BoxDecoration(
-                  color: Colors.green,
-                  border: gradProvider.gradientType == GradientType.values[i]
-                      ? Border.all(color: Colors.white, width: 4)
-                      : null,
-                  borderRadius: BorderRadius.circular(8),
-                  gradient: getGradientForTileMode(TileMode.values[i], i)),
-            ),
-            Container(
-              width: w * 0.05,
-              height: 40,
-              child: Center(
-                child: Text(
-                  GradientType.values[i].toString().split('.')[1].toUpperCase(),
-                  style: const TextStyle(color: Colors.white),
-                ),
+    return Transform.scale(
+      scale: gradProvider.gradientType == GradientType.values[i]?1.1:1,
+      child: InkWell(
+        onTap: () {
+          gradProvider.gradientType = GradientType.values[i];
+          gradProvider.updateUi();
+        },
+        child: Container(
+          margin: const EdgeInsets.symmetric(horizontal: 10),
+          child: Column(
+            children: [
+              Container(
+                height: gradeSelectBoxW,
+                width: gradeSelectBoxW,
+                decoration: BoxDecoration(
+                    color: Colors.green,
+                    border: gradProvider.gradientType == GradientType.values[i]
+                        ? Border.all(color: Colors.white, width: 4)
+                        : null,
+                    borderRadius: BorderRadius.circular(8),
+                    gradient: getGradientForTileMode(TileMode.values[i], i)),
               ),
-            )
-          ],
+              Container(
+                width: w * 0.05,
+                height: 40,
+                child: Center(
+                  child: Text(
+                    GradientType.values[i].toString().split('.')[1].toUpperCase(),
+                    style: const TextStyle(color: Colors.white),
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
   }
 
   tileModeSIngleBox(int i) {
-    return InkWell(
-      onTap: () {
-        gradProvider.selectedTileMode = TileMode.values[i];
-        gradProvider.updateUi();
-      },
-      child: Container(
-        margin: const EdgeInsets.all(10),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              width: tileModeW,
-              height: tileModeW,
-              decoration: BoxDecoration(
-                  border: gradProvider.selectedTileMode == TileMode.values[i]
-                      ? Border.all(
-                          width: 3,
-                          color: Colors.white,
-                        )
-                      : null,
-                  borderRadius: BorderRadius.circular(10),
-                  gradient: getGradientForTileMode(TileMode.values[i],
-                      GradientType.values.indexOf(gradProvider.gradientType))
-                  // gradients[GradientType.values.indexOf(gradProvider.gradientType)].
-                  ),
-            ),
-            Container(
-              height: tileModeW * 0.3,
-              child: Center(
-                child: Text(
-                  TileMode.values[i].name,
-                  style: const TextStyle(color: Colors.white),
-                ),
+    return Transform.scale(
+      scale: gradProvider.selectedTileMode == TileMode.values[i]?1.1:1,
+      child: InkWell(
+        onTap: () {
+          gradProvider.selectedTileMode = TileMode.values[i];
+          gradProvider.updateUi();
+        },
+        child: Container(
+          margin: const EdgeInsets.all(10),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                width: tileModeW,
+                height: tileModeW,
+                decoration: BoxDecoration(
+                    border: gradProvider.selectedTileMode == TileMode.values[i]
+                        ? Border.all(
+                            width: 3,
+                            color: Colors.white,
+                          )
+                        : null,
+                    borderRadius: BorderRadius.circular(10),
+                    gradient: getGradientForTileMode(TileMode.values[i],
+                        GradientType.values.indexOf(gradProvider.gradientType))
+                    // gradients[GradientType.values.indexOf(gradProvider.gradientType)].
+                    ),
               ),
-            )
-          ],
+              Container(
+                height: tileModeW * 0.3,
+                child: Center(
+                  child: Text(
+                    TileMode.values[i].name,
+                    style: const TextStyle(color: Colors.white),
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -657,49 +650,54 @@ class _GradientCreatorState extends State<GradientCreator> {
   int selectedBlendModeOption = 13;
   blendModeBoxItem(int i) {
     double blendModeBoxItemH = alignOptionsBoxH + 30;
-    return InkWell(
-        onTap: () {
-          selectedBlendModeOption = i;
-          log("blend ${BlendMode.values[i].name} /$i");
-
-          gradProvider.updateUi();
-        },
-        child: Column(
-          children: [
-            Container(
-              margin: const EdgeInsets.all(4),
-              width: alignOptionsBoxH,
-              height: alignOptionsBoxH,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                color: Colors.amber.shade100,
-                border: Border.all(
-                    color: Colors.white,
-                    width: selectedBlendModeOption == i ? 3 : 0.1),
+    return Transform.scale(
+      scale: 1,
+      child: InkWell(
+          onTap: () {
+            selectedBlendModeOption = i;
+            log("blend ${BlendMode.values[i].name} /$i");
+    
+            gradProvider.updateUi();
+          },
+          child: Column(
+            children: [
+              Container(
+                margin: const EdgeInsets.all(4),
+                width: alignOptionsBoxH,
+                height: alignOptionsBoxH,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  color: Colors.amber.shade100,
+                  border: Border.all(
+                      color: Colors.white,
+                      width: selectedBlendModeOption == i ? 5 : 0.1),
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: ShaderMask(
+                      blendMode: BlendMode.values[i],
+                      shaderCallback: (Rect rect) {
+                        return getGradientForTileMode(
+                                gradProvider.selectedTileMode,
+                                GradientType.values
+                                    .indexOf(gradProvider.gradientType))
+                            .createShader(rect);
+                      },
+                      child: Image.network(
+                         "https://raw.githubusercontent.com/sdycode/Gradient_Maker/main/assets/nature.jpg",
+                        // "https://github.com/sdycode/Gradient_Maker/blob/main/assets/nature.jpg?raw=true",
+                        // "nature.jpg",
+                        fit: BoxFit.cover,
+                      )),
+                ),
               ),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: ShaderMask(
-                    blendMode: BlendMode.values[i],
-                    shaderCallback: (Rect rect) {
-                      return getGradientForTileMode(
-                              gradProvider.selectedTileMode,
-                              GradientType.values
-                                  .indexOf(gradProvider.gradientType))
-                          .createShader(rect);
-                    },
-                    child: Image.asset(
-                      "nature.jpg",
-                      fit: BoxFit.cover,
-                    )),
-              ),
-            ),
-            Text(
-              BlendMode.values[i].name,
-              style: const TextStyle(color: Colors.white),
-            )
-          ],
-        ));
+              Text(
+                BlendMode.values[i].name,
+                style: const TextStyle(color: Colors.white),
+              )
+            ],
+          )),
+    );
   }
 
   lineaGradAlignmentOptionBox(int i) {
@@ -886,8 +884,10 @@ class _GradientCreatorState extends State<GradientCreator> {
                                 .indexOf(gradProvider.gradientType))
                         .createShader(rect);
                   },
-                  child: Image.asset(
-                    "nature.jpg",
+                  child: Image.network(
+                    "https://raw.githubusercontent.com/sdycode/Gradient_Maker/main/assets/nature.jpg",
+                      // "https://github.com/sdycode/Gradient_Maker/blob/main/assets/nature.jpg?raw=true",
+                    // "nature.jpg",
                     fit: BoxFit.cover,
                   )),
             ),

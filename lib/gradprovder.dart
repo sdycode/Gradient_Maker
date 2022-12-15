@@ -3,8 +3,9 @@ import 'dart:math' as m;
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:gradient_maker/constants.dart';
 import 'package:gradient_maker/gradscreen.dart';
-import 'package:gradient_maker/laignmnet_pair.dart';
+import 'package:gradient_maker/aignmnet_pair.dart';
 import 'package:gradient_maker/main.dart';
 
 enum GradientType { linear, radial, sweep }

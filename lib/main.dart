@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:gradient_maker/gradprovder.dart';
 import 'package:gradient_maker/gradscreen.dart';
-import 'package:gradient_maker/laignmnet_pair.dart';
+import 'package:gradient_maker/aignmnet_pair.dart';
 import 'package:provider/provider.dart';
 
 double h = 800;
@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
       providers: [ChangeNotifierProvider(create: (context) => GradProvider())],
       child: MaterialApp(
           debugShowCheckedModeBanner: false,
-          title: 'Flutter Demo',
+          title: 'Gradient Maker',
           theme: ThemeData(
             primarySwatch: Colors.blue,
           ),
