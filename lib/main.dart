@@ -1,6 +1,8 @@
 import 'dart:developer';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:gradient_maker/global.dart';
 import 'package:gradient_maker/gradprovder.dart';
 import 'package:gradient_maker/gradscreen.dart';
 import 'package:gradient_maker/aignmnet_pair.dart';
@@ -22,19 +24,30 @@ double textBoxSizeH = h * 0.4;
 double imageBoxW = w * 0.2;
 double alignOptionsBoxW = w * 0.7;
 double alignOptionsBoxH = h * 0.16;
-double tileModeW = h * 0.1;
+const double tileModeW = 36;
+//  h * 0.1;
+double colorSliderBarH = h * 0.05;
 double pointRad = 12;
 double preSliderWidth = w * 0.7;
 double imageBoxH = h * 0.4;
+const double sliderPad = 20;
+const double slidersBoxH = 40;
+double mainBoxH = h - topbarH - colorSliderBarH - slidersBoxH;
+double totalH = demoBoxSizeH + pointRad * 2;
+double textBoxH = totalH * 0.18;
 void main() {
   runApp(const MyApp());
 }
+
+int randomNo = 0;
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    randomNo = Random().nextInt(colorsPairs.length );
+
     return MultiProvider(
       providers: [ChangeNotifierProvider(create: (context) => GradProvider())],
       child: MaterialApp(
@@ -44,83 +57,37 @@ class MyApp extends StatelessWidget {
             primarySwatch: Colors.blue,
           ),
           home: Builder(builder: (context) {
-            log("ccc bef dd $colorListBoxW / $demoBoxSizeW /$h");
             w = MediaQuery.of(context).size.width;
             h = MediaQuery.of(context).size.height;
-            log("ccc dd $colorListBoxW / $demoBoxSizeW /$h");
-            colorListBoxW = w * 0.18;
+
+            colorSliderBarH = h * 0.05;
+            colorListBoxW = tileModeW * 4 + 4 * (5 * 2);
             colorListBoxH = h * 0.6;
-            double leftsideW = w - (tileModeW * 4 + 20 * 4 + 30);
+            double leftsideW = w - colorListBoxW;
 
             gradeSelectBoxW = h * 0.1;
-            demoBoxSizeW = leftsideW * 0.26;
-            demoBoxSizeH = leftsideW * 0.26;
-            alignOptionsBoxW = w - (tileModeW * 4 + 20 * 4 + 30);
+            mainBoxH = h - topbarH - colorSliderBarH - slidersBoxH * 2 - 10;
+            demoBoxSizeW = mainBoxH;
+            demoBoxSizeH = mainBoxH;
+            alignOptionsBoxW = w - colorListBoxW;
             alignOptionsBoxH = h * 0.1;
-            tileModeW = h * 0.1;
+
             pointRad = 12;
-            sliderWidth = w - (tileModeW * 4 + 20 * 4 + 30);
+            sliderWidth = w - colorListBoxW - sliderPad;
             textBoxSizeW = leftsideW * 0.32;
             textBoxSizeH = h * 0.4;
             imageBoxH = leftsideW * 0.26;
             imageBoxW = leftsideW * 0.28;
-            log("ccc dd after $colorListBoxW / $demoBoxSizeW");
-            log("demoo demo ${w} / $h");
+            totalH = demoBoxSizeH + pointRad * 2;
+            textBoxH = totalH * 0.3;
             GradProvider gradProvider = Provider.of(context, listen: false);
             gradProvider.resizeColorSliderPositions();
-            preSliderWidth = w - (tileModeW * 4 + 20 * 4 + 30);
+            preSliderWidth = w - colorListBoxW - sliderPad;
             gradProvider.updateLinearPointForSelectedAlignment(
               gradProvider.originalAlignmentPair,
             );
             return GradientCreator();
           })),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),
     );
   }
 }

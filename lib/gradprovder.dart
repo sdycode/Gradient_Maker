@@ -4,6 +4,7 @@ import 'dart:math' as m;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:gradient_maker/constants.dart';
+import 'package:gradient_maker/global.dart';
 import 'package:gradient_maker/gradscreen.dart';
 import 'package:gradient_maker/aignmnet_pair.dart';
 import 'package:gradient_maker/main.dart';
@@ -35,9 +36,10 @@ class GradProvider with ChangeNotifier {
   double sweepEndAngle = m.pi * 2;
   bool continuousSweep = false;
   List<ColorStopModel> colorStopModels = [
-    ColorStopModel(0.0, "fff8b249", 0),
-    ColorStopModel(1.0, "fffee795", 0)
+    ColorStopModel(0.0, colorsPairs[randomNo][0], 0),
+    ColorStopModel(1.0, colorsPairs[randomNo][1], 0)
   ];
+  // colorsPairs
   AlignmentPair originalAlignmentPair =
       AlignmentPair(Alignment(-1, -1), Alignment(1.0, 1.0));
   updateoriginalAlignmentPair(AlignmentPair alignmentPair) {
@@ -54,16 +56,17 @@ class GradProvider with ChangeNotifier {
         demoBoxSizeH * (linearAlignStart.y + 1) * 0.5);
     linearAlignEndPoint = Offset(demoBoxSizeW * (linearAlignEnd.x + 1) * 0.5,
         demoBoxSizeH * (linearAlignEnd.y + 1) * 0.5);
-    log("linerpoint ${linearAlignStartPoint}/${linearAlignEndPoint} / $linearAlignStart / $linearAlignEnd");
+    // log("linerpoint ${linearAlignStartPoint}/${linearAlignEndPoint} / $linearAlignStart / $linearAlignEnd");
   }
 
   updateAlignPointsForBoxSize(Size boxSize) {
     double bw = boxSize.width;
     double bh = boxSize.height;
     linearAlignEndPoint = Offset(bw, bh);
-    log("linerpoint starte ${linearAlignStartPoint}/${linearAlignEndPoint} / $linearAlignStart / $linearAlignEnd");
+    // log("linerpoint starte ${linearAlignStartPoint}/${linearAlignEndPoint} / $linearAlignStart / $linearAlignEnd");
     radialAlignFocalPoint = Offset(bw * 1, bh * 1);
     colorStopModels[1].left = sliderWidth * sliderActualWidthFactorWithPadding;
+                log(" in fun gradProvider.colorStopModels ${colorStopModels[1].left}");
     radialAlignCenterPoint = Offset(bw * 0.5, bh * 0.5);
     sweepAlignCenterPoint = Offset(bw * 0.5, bh * 0.5);
     // radialAlignFocalPoint = Offset();
